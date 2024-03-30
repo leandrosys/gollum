@@ -4,10 +4,14 @@ const ExpensesService = require('./../services/expenses.service');
 const router = express.Router();
 const service = new ExpensesService();
 
-router.get('/:id', async (req, res) => {
-  const { id } = req.params;
-  const expense = await service.findOne(id);
-  res.status(200).json({ expense });
+router.get('/:id', async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const expense = await service.findOne(id);
+    res.status(200).json({ expense });
+  } catch (error) {
+    next(error);
+  }
 });
 
 router.get('/', async (req, res) => {

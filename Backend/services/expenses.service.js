@@ -1,4 +1,5 @@
 const crypto = require('crypto');
+const boom = require('@hapi/boom');
 
 class ExpensesService {
   constructor() {
@@ -19,7 +20,9 @@ class ExpensesService {
   }
 
   async findOne(id) {
-    return this.expenses.find((item) => item.id === id);
+    const expense = this.expenses.find((item) => item.id === id);
+    if (!expense) throw boom.notFound('expense not found');
+    return expense;
   }
 
   async update(id, changes) {
