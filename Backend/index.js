@@ -1,5 +1,6 @@
 const express = require('express');
 const routerApi = require('./routes');
+const cors = require('cors');
 const {
   logErrors,
   errorHandler,
@@ -9,6 +10,7 @@ const {
 const app = express();
 const port = 3000;
 
+app.use(cors);
 app.use(express.json());
 
 routerApi(app);

@@ -27,9 +27,7 @@ class ExpensesService {
 
   async update(id, changes) {
     const index = this.expenses.findIndex((item) => item.id === id);
-    if (index === -1) {
-      throw new Error('expense not found');
-    }
+    if (index === -1) throw boom.notFound('expense not found');
     const expense = this.expenses[index];
     this.expenses[index] = {
       ...expense,
@@ -40,9 +38,7 @@ class ExpensesService {
 
   async delete(id) {
     const index = this.expenses.findIndex((item) => item.id === id);
-    if (index === -1) {
-      throw new Error('expense not found');
-    }
+    if (index === -1) throw boom.notFound('expense not found');
     this.expenses.splice(index);
     return { id };
   }
