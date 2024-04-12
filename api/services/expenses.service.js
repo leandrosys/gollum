@@ -1,45 +1,40 @@
 const crypto = require('crypto');
 const boom = require('@hapi/boom');
+const { models } = require('../libs/sequelize');
 
 class ExpensesService {
-  constructor() {
-    this.expenses = [];
-  }
-
   async create(data) {
-    const newExpense = {
-      id: crypto.randomUUID(),
+    let id = crypto.randomUUID();
+    const fullDate = {
+      id,
       ...data,
     };
-    this.expenses.push(newExpense);
+    const newExpense = await models.Expenses.create(fullDate);
     return newExpense;
   }
 
   async find() {
-    return this.expenses;
+    const expenses = await models.Expenses.findAll();
+    return expenses;
   }
 
   async findOne(id) {
-    const expense = this.expenses.find((item) => item.id === id);
+    const expense = await models.Expenses.findByPk(id);
     if (!expense) throw boom.notFound('expense not found');
     return expense;
   }
 
   async update(id, changes) {
-    const index = this.expenses.findIndex((item) => item.id === id);
-    if (index === -1) throw boom.notFound('expense not found');
-    const expense = this.expenses[index];
-    this.expenses[index] = {
-      ...expense,
-      ...changes,
-    };
-    return this.expenses[index];
+    const expense = await this.findOne(id);
+    if (!expense) throw boom.notFound('expense not found');
+    const updateExpense = await expense.update(changes);
+    return updateExpense;
   }
 
   async delete(id) {
-    const index = this.expenses.findIndex((item) => item.id === id);
-    if (index === -1) throw boom.notFound('expense not found');
-    this.expenses.splice(index);
+    const expense = await this.findOne(id);
+    if (!expense) throw boom.notFound('expense not found');
+    await expense.destroy(id);
     return { id };
   }
 }
