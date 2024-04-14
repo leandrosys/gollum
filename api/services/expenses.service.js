@@ -26,14 +26,12 @@ class ExpensesService {
 
   async update(id, changes) {
     const expense = await this.findOne(id);
-    if (!expense) throw boom.notFound('expense not found');
     const updateExpense = await expense.update(changes);
     return updateExpense;
   }
 
   async delete(id) {
     const expense = await this.findOne(id);
-    if (!expense) throw boom.notFound('expense not found');
     await expense.destroy(id);
     return { id };
   }

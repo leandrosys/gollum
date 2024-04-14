@@ -25,15 +25,23 @@ router.get(
   },
 );
 
-router.get('/', async (req, res) => {
-  const expenses = await service.find();
-  res.status(200).json({ expenses });
+router.get('/', async (req, res, next) => {
+  try {
+    const expenses = await service.find();
+    res.status(200).json({ expenses });
+  } catch (error) {
+    next(error);
+  }
 });
 
 router.post('/', dtoHandler(createExpenseDto, 'body'), async (req, res) => {
-  const body = req.body;
-  const newExpense = await service.create(body);
-  res.status(201).json({ newExpense });
+  try {
+    const body = req.body;
+    const newExpense = await service.create(body);
+    res.status(201).json({ newExpense });
+  } catch (error) {
+    next(error);
+  }
 });
 
 router.patch(
@@ -44,8 +52,8 @@ router.patch(
     try {
       const { id } = req.params;
       const body = req.body;
-      const expense = await service.update(id, body);
-      res.status(200).json({ expense });
+      const updateExpense = await service.update(id, body);
+      res.status(200).json({ updateExpense });
     } catch (error) {
       next(error);
     }
