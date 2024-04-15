@@ -1,19 +1,19 @@
 const express = require('express');
-const ExpensesService = require('./../services/expenses.service');
+const EventTypesService = require('./../services/eventTypes.service');
 const dtoHandler = require('../middlewares/dto.handler');
 const {
-  createExpenseDto,
-  getExpenseDto,
-  updateExpenseDto,
-  deleteExpenseDto,
-} = require('../schemas/expenses.dto');
+  createEvenTypeDto,
+  getEvenTypeDto,
+  updateEvenTypeDto,
+  deleteEvenTypeDto,
+} = require('../schemas/eventTypes.dto');
 
 const router = express.Router();
-const service = new ExpensesService();
+const service = new EventTypesService();
 
 router.get(
   '/:id',
-  dtoHandler(getExpenseDto, 'params'),
+  dtoHandler(getEvenTypeDto, 'params'),
   async (req, res, next) => {
     try {
       const { id } = req.params;
@@ -34,7 +34,7 @@ router.get('/', async (req, res, next) => {
   }
 });
 
-router.post('/', dtoHandler(createExpenseDto, 'body'), async (req, res) => {
+router.post('/', dtoHandler(createEvenTypeDto, 'body'), async (req, res) => {
   try {
     const body = req.body;
     const newExpense = await service.create(body);
@@ -46,8 +46,8 @@ router.post('/', dtoHandler(createExpenseDto, 'body'), async (req, res) => {
 
 router.patch(
   '/:id',
-  dtoHandler(getExpenseDto, 'params'),
-  dtoHandler(updateExpenseDto, 'body'),
+  dtoHandler(getEvenTypeDto, 'params'),
+  dtoHandler(updateEvenTypeDto, 'body'),
   async (req, res, next) => {
     try {
       const { id } = req.params;
@@ -62,7 +62,7 @@ router.patch(
 
 router.delete(
   '/:id',
-  dtoHandler(deleteExpenseDto, 'params'),
+  dtoHandler(deleteEvenTypeDto, 'params'),
   async (req, res, next) => {
     try {
       const { id } = req.params;

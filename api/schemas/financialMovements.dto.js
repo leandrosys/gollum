@@ -7,7 +7,7 @@ const transactionDate = Joi.date();
 const eventType = Joi.string();
 const description = Joi.string().max(50);
 
-const createExpenseDto = Joi.object({
+const createFinancialMovementsDto = Joi.object({
   category: category.required(),
   value: value.required(),
   transactionDate: transactionDate.required(),
@@ -15,11 +15,11 @@ const createExpenseDto = Joi.object({
   description,
 });
 
-const getExpenseDto = Joi.object({
+const getFinancialMovementsDto = Joi.object({
   id: id.required(),
 });
 
-const updateExpenseDto = Joi.object({
+const updateFinancialMovementsDto = Joi.object({
   category,
   value,
   transactionDate,
@@ -27,13 +27,13 @@ const updateExpenseDto = Joi.object({
   description,
 });
 
-const deleteExpenseDto = Joi.object({
+const deleteFinancialMovementsDto = Joi.object({
   id: id.required(),
 });
 
 module.exports = {
-  createExpenseDto,
-  getExpenseDto,
-  updateExpenseDto,
-  deleteExpenseDto,
+  createFinancialMovementsDto,
+  getFinancialMovementsDto,
+  updateFinancialMovementsDto,
+  deleteFinancialMovementsDto,
 };

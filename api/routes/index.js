@@ -1,14 +1,14 @@
 const express = require('express');
-const expensesRouter = require('./expenses.router');
+const financialsRouter = require('./financialMovements.router');
 const categoriesRouter = require('./categories.router');
-const usersRouter = require('./users.router');
+const eventTypesRouter = require('./eventTypes.router');
 
 function routerApi(app) {
   const router = express.Router();
   app.use('/api/v1', router);
-  router.use('/expenses', expensesRouter);
+  router.use('/financials', financialsRouter);
   router.use('/categories', categoriesRouter);
-  router.use('/users', usersRouter);
+  router.use('/event-types', eventTypesRouter);
 }
 
 module.exports = routerApi;

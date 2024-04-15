@@ -1,8 +1,8 @@
 const { Model, DataTypes, Sequelize } = require('sequelize');
 
-const EXPENSES_TABLE = 'accounting_events';
+const FINANCIAL_MOVEMENTS_TABLE = 'financial_movements';
 
-const ExpensesSchema = {
+const FinancialMovementsSchema = {
   id: {
     allowNull: false,
     primaryKey: true,
@@ -38,7 +38,7 @@ const ExpensesSchema = {
   },
 };
 
-class Expenses extends Model {
+class FinancialMovements extends Model {
   static associate() {
     // associate
   }
@@ -46,11 +46,15 @@ class Expenses extends Model {
   static config(sequelize) {
     return {
       sequelize,
-      tableName: EXPENSES_TABLE,
-      modelName: 'Expenses',
+      tableName: FINANCIAL_MOVEMENTS_TABLE,
+      modelName: 'Financial',
       timestamps: false,
     };
   }
 }
 
-module.exports = { EXPENSES_TABLE, ExpensesSchema, Expenses };
+module.exports = {
+  FINANCIAL_MOVEMENTS_TABLE,
+  FinancialMovementsSchema,
+  FinancialMovements,
+};
