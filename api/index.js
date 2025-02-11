@@ -5,6 +5,7 @@ const {
   logErrors,
   errorHandler,
   boomErrorHandler,
+  ormErrorHandler,
 } = require('./middlewares/error.handler');
 
 const app = express();
@@ -18,6 +19,7 @@ const options = {
     if (whiteList.includes(origin)) {
       callback(null, true);
     } else {
+      console.log(origin);
       callback(new Error('Dominio no permitido'));
     }
   },
@@ -27,6 +29,7 @@ routerApi(app);
 app.use(cors(options));
 
 app.use(logErrors);
+app.use(ormErrorHandler);
 app.use(boomErrorHandler);
 app.use(errorHandler);
 

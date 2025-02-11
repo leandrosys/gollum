@@ -17,8 +17,8 @@ router.get(
   async (req, res, next) => {
     try {
       const { id } = req.params;
-      const expense = await service.findOne(id);
-      res.status(200).json({ expense });
+      const eventType = await service.findOne(id);
+      res.status(200).json({ eventType });
     } catch (error) {
       next(error);
     }
@@ -27,8 +27,8 @@ router.get(
 
 router.get('/', async (req, res, next) => {
   try {
-    const expenses = await service.find();
-    res.status(200).json({ expenses });
+    const eventTypes = await service.find();
+    res.status(200).json({ eventTypes });
   } catch (error) {
     next(error);
   }
@@ -37,8 +37,8 @@ router.get('/', async (req, res, next) => {
 router.post('/', dtoHandler(createEvenTypeDto, 'body'), async (req, res) => {
   try {
     const body = req.body;
-    const newExpense = await service.create(body);
-    res.status(201).json({ newExpense });
+    const newEventType = await service.create(body);
+    res.status(201).json({ newEventType });
   } catch (error) {
     next(error);
   }
@@ -52,8 +52,8 @@ router.patch(
     try {
       const { id } = req.params;
       const body = req.body;
-      const updateExpense = await service.update(id, body);
-      res.status(200).json({ updateExpense });
+      const updateEventType = await service.update(id, body);
+      res.status(200).json({ updateEventType });
     } catch (error) {
       next(error);
     }
@@ -66,8 +66,8 @@ router.delete(
   async (req, res, next) => {
     try {
       const { id } = req.params;
-      const expense = await service.delete(id);
-      res.status(200).json({ expense });
+      const eventType = await service.delete(id);
+      res.status(200).json({ id });
     } catch (error) {
       next(error);
     }

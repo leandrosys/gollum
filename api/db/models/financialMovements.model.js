@@ -1,4 +1,5 @@
 const { Model, DataTypes, Sequelize } = require('sequelize');
+const { EVENT_TYPES_TABLE } = require('./eventTypes.model');
 
 const FINANCIAL_MOVEMENTS_TABLE = 'financial_movements';
 
@@ -25,10 +26,16 @@ const FinancialMovementsSchema = {
     allowNull: false,
     type: DataTypes.DOUBLE,
   },
-  eventType: {
+  eventTypeId: {
     allowNull: false,
     type: DataTypes.STRING,
-    field: 'event_type',
+    field: 'event_type_id',
+    references: {
+      model: EVENT_TYPES_TABLE,
+      key: 'id',
+    },
+    onUpdate: 'CASCADE',
+    onDelete: 'SET NULL',
   },
   createAt: {
     allowNull: false,
@@ -39,8 +46,8 @@ const FinancialMovementsSchema = {
 };
 
 class FinancialMovements extends Model {
-  static associate() {
-    // associate
+  static associate(models) {
+    this.hasMany(models.EventTypes, { as: 'eventTypes' });
   }
 
   static config(sequelize) {

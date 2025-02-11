@@ -1,6 +1,6 @@
 const { Model, DataTypes, Sequelize } = require('sequelize');
 
-const EVENT_TYPES_TABLE = 'event_tables';
+const EVENT_TYPES_TABLE = 'event_types';
 
 const EventTypesSchema = {
   id: {
@@ -28,7 +28,7 @@ class EventTypes extends Model {
   static config(sequelize) {
     return {
       sequelize,
-      tableName: EXPENSES_TABLE,
+      tableName: EVENT_TYPES_TABLE,
       modelName: 'EventTypes',
       timestamps: false,
     };
